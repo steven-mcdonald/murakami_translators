@@ -46,7 +46,7 @@ Could Machine Learning be used to answer these questions?
 
 - Logistic Regression, SVM and XGBoost models all had 5-fold cross-validation accuracy above ...
 
-  ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/)
+  ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/model_cv_acc_comparison_01.png)
 
 - Feature importance from ... indicate the following
 
@@ -67,6 +67,8 @@ Could Machine Learning be used to answer these questions?
   - fewer pronouns
   - more verbs
   - frequency of the word he
+
+  ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png)
 
 - Some features were dropped before modelling as they were potentially related to the content 
 
