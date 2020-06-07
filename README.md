@@ -6,9 +6,9 @@ Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_me
 
 ## Overview
 
-As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I'd wondered about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work. This seemed quite possible to me given the linguistic gulf between Japanese and English.
+As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I'd wondered about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work? This seemed quite possible to me given the linguistic gulf between Japanese and English.
 
-Could Machine Learning be used to answer these questions?
+Could Machine Learning models trained to predict the translator of an unseen text help answer these questions?
 
 ## Objectives
 
@@ -17,7 +17,7 @@ Could Machine Learning be used to answer these questions?
 
 ## Key Steps
 
-- Read ebooks from various formats (epub, docx, pdf) into standardised text files for analysis.
+- Read ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis.
   -  **Libraries used:** ebooklib, BeautifulSoup and textract.
   - **Notebook:** [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
 - Tidy the loaded texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
@@ -27,12 +27,12 @@ Could Machine Learning be used to answer these questions?
   - **Libraries used:** .
   - **Notebooks:** [03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb), [04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb),  [05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
 - Evaluate the effectiveness of logistic regression models generated using different features
-  - using accuracy and confusion matrices as the main measures of success for the models
+  - using accuracy and confusion matrices as the main evaluation metrics to measure the success of the models.
   - **Libraries used:** .
   - **Notebooks:** [06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
 - Evaulate the effectiveness of alternative model algorithms to accurately predict the translator while providing insights into the importance of the features used in the predictions
   - **Libraries used:** .
-  - **Notebooks:** [06b_modelling_knn_dtree_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06b_modelling_knn_dtree_v01.ipynb), [06c_modelling_rforest_bagging_boosting_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06c_modelling_rforest_bagging_boosting_v01.ipynb), [06d_modelling_SVM_v02.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06d_modelling_SVM_v02.ipynb), [06e_modelling_nnet_v02.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06e_modelling_nnet_v02.ipynb), [notebooks/07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
+  - **Notebooks:** [06b_modelling_knn_dtree_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06b_modelling_knn_dtree_v01.ipynb), [06c_modelling_ensembles_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06c_modelling_ensembles_v01.ipynb), [06d_modelling_SVM_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06d_modelling_SVM_v01.ipynb), [06e_modelling_nnet_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06e_modelling_nnet_v01.ipynb), [07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
 - Checking the most confidently predicted chunks of text for each translator together with the most important features from the model to understand the differences in translation style
   - **Libraries used:** .
   - **Notebooks:**[08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
@@ -48,7 +48,7 @@ Could Machine Learning be used to answer these questions?
 
   ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/model_cv_acc_comparison_01.png)
 
-- Feature importance from ... indicate the following
+- Feature importance from the best Logistic Regression model indicate the following features are the most important when differentiating each translator from the other two.
 
   **Alfred Birnbaum**:
 
@@ -70,17 +70,22 @@ Could Machine Learning be used to answer these questions?
 
   ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png)
 
-- Some features were dropped before modelling as they were potentially related to the content 
+- Some features were dropped before modelling as they were potentially related to the content  or page formatting such as punctuation.
 
-- Two remaining features which were important in the predictions, namely frequency of the words 'had' and 'he' may also be more related to the tense and the narrative perspective. The modelling is therefore rerun without these features to ensure that the baseline can still be beaten
+- Two remaining features which were important in the predictions, namely frequency of the words 'had' and 'he' may also be more related to the tense and the narrative perspective. The modelling was therefore rerun without these features to ensure that the baseline could still be beaten.
 
-- As the initial train/test split was performed at random there is the risk that the model is learning something of the style of the books themselves rather than the translator's. The ideal solution would be to have the same text translated by each of the three translators. 
+- As the initial train/test split was performed at random there is the risk that the model is learning something of the style of the books themselves rather than the translation style. In order to rule this out, the model is re-run with the test set being only text where there is the same source material but different translators. 
 
 ## Next steps
 
+**Modelling**
+
 - Further features e.g. ngrams, word order, sentence structure etc.
 - Other models e.g. different neural network architectures 
+
+**Topic Expansion**
+
 - Clustering e.g. set 3 clusters - does data cluster on translator?
 - Another author especially one book with several translators
-- Network map of characters per book
+- Network map of characters per book 
 - Analyze web scrape of book reviews for opinions of translators
