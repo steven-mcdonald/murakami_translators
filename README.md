@@ -7,6 +7,10 @@ Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_me
 ## Table of Contents
 
 - [Overview](#overview)
+- [Objectives](#objectives)
+- [Key Stages](#key-stages)
+- [Results](#results)
+- [Next Steps](#next-steps)
 
 ## Overview
 
@@ -19,7 +23,7 @@ Could Machine Learning models trained to predict the translator of an unseen tex
 1. Create a machine learning model to investigate whether it is possible to predict which translator translated an unseen sample of text from one of Murakami's books.
 2. If the model is successful, gain insights into the differences in the translator's styles through the model features.
 
-## Key Steps
+## Key Stages
 
 - Import ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis with Python.
   -  **Libraries/Tools used:** ebooklib, BeautifulSoup and textract.
@@ -80,7 +84,7 @@ Could Machine Learning models trained to predict the translator of an unseen tex
 
 - As the initial train/test split was performed at random there is the risk that the model is learning something of the style of the books themselves rather than the translation style. In order to rule this out, the model is re-run with the test set being only text where there is the same source material but different translators. 
 
-## Next steps
+## Next Steps
 
 **Modelling**
 
