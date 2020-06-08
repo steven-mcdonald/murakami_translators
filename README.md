@@ -4,11 +4,15 @@
 
 Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/japanese-reading?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
+## Table of Contents
+
+- [Overview]((#Overview))
+
 ## Overview
 
-As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I'd wondered about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work? This seemed quite possible to me given the linguistic gulf between Japanese and English.
+As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I'd been curious about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work? This seemed quite possible to me given the linguistic gulf between Japanese and English.
 
-Could Machine Learning models trained to predict the translator of an unseen text help answer these questions?
+Could Machine Learning models trained to predict the translator of an unseen text help answer these questions? That is the aim of this project.
 
 ## Objectives
 
@@ -17,14 +21,14 @@ Could Machine Learning models trained to predict the translator of an unseen tex
 
 ## Key Steps
 
-- Read ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis.
-  -  **Libraries used:** ebooklib, BeautifulSoup and textract.
+- Import ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis with Python.
+  -  **Libraries/Tools used:** ebooklib, BeautifulSoup and textract.
   - **Notebook:** [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
-- Tidy the loaded texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
-  - **Libraries used:** .
+- Clean and organise the texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
+  - **Libraries/Tools used:** pandas, regex .
   - **Notebook:** [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
 - Engineer features related to translation style while avoiding features related to the overall content or themes of the books. Explore the data and features.
-  - **Libraries used:** .
+  - **Libraries/Tools used:** textacy, vaderSentiment, sklearn.
   - **Notebooks:** [03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb), [04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb),  [05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
 - Evaluate the effectiveness of logistic regression models generated using different features
   - using accuracy and confusion matrices as the main evaluation metrics to measure the success of the models.
