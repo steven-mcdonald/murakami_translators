@@ -50,13 +50,13 @@ Could Machine Learning models trained to predict the translator of an unseen tex
 
 ## Results
 
-- All models tested were able to predict the translator of a test dataset with accuracy above baseline (i.e. better than choosing the most common translator by default)
+- All models tested were able to predict the translator of a test dataset with accuracy above the baseline score of 0.40 (i.e. better than choosing the most common translator by default)
 
-- Logistic Regression, SVM and XGBoost models all had 5-fold cross-validation accuracy above ...
+- Logistic Regression, SVM and XGBoost models all had 5-fold cross-validation accuracy above 0.67. Although XGBoost was the most accurate model, further analysis was continued using Logistic Regression due to its short run time and more easily interpretable features.
 
   ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/model_cv_acc_comparison_01.png)
 
-- Feature importance from the best Logistic Regression model indicate the following features are the most important when differentiating each translator from the other two.
+- Feature importance from the best Logistic Regression model indicate the following features to be the most important when differentiating each translator from the other two.
 
   **Alfred Birnbaum**:
 
@@ -75,6 +75,8 @@ Could Machine Learning models trained to predict the translator of an unseen tex
   - fewer pronouns
   - more verbs
   - frequency of the word he
+
+  The figure below helps summarise the values of some of these key features for the most confidently predicted chunks of text for each translator
 
   ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png)
 
