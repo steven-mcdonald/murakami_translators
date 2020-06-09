@@ -12,20 +12,26 @@ Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_me
 - [Results](#results)
 - [Next Steps](#next-steps)
 
+
+
 ## Overview
 
 As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I'd been curious about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work? This seemed quite possible to me given the linguistic gulf between Japanese and English.
 
 Could Machine Learning models trained to predict the translator of an unseen text help answer these questions? That is the aim of this project.
 
+
+
 ## Objectives
 
 1. Create a machine learning model to investigate whether it is possible to predict which translator translated an unseen sample of text from one of Murakami's books.
 2. If the model is successful, gain insights into the differences in the translator's styles through the model features.
 
+
+
 ## Key Stages
 
-#### Data Loading
+### Data Loading
 
 Import ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis with Python.
 
@@ -33,13 +39,13 @@ Key libraries used were ebooklib, BeautifulSoup and textract.
 
 [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
 
-#### Data Cleaning 
+### Data Cleaning 
 
 Clean and organise the texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
 
 [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
 
-#### Feature Engineering and EDA
+### Feature Engineering and EDA
 
 Engineer features related to translation style while avoiding features related to the overall content or themes of the books. Explore the data and features.
 
@@ -51,7 +57,7 @@ Key libraries used were textacy, vaderSentiment, sklearn.
 
 [05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
 
-#### Modelling with Combinations of Features
+### Modelling with Combinations of Features
 
 Evaluate the effectiveness of logistic regression models generated using different features
 
@@ -59,7 +65,7 @@ using accuracy and confusion matrices as the main evaluation metrics to measure 
 
 [06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
 
-#### Comparing Machine Learning Algorithms
+### Comparing Machine Learning Algorithms
 
 Evaulate the effectiveness of alternative model algorithms. Following the project objectives the goal is to have a model that is both accurate and interpretable. Boosting, SVM and Multi-Layer Perceptron Neural Networks all generated greater accuracy in their predictions than Logistic Regression. However, 
 
@@ -73,21 +79,23 @@ Evaulate the effectiveness of alternative model algorithms. Following the projec
 
 [07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
 
-#### Investigating the most Confident Predictions
+### Investigating the most Confident Predictions
 
 Checking the most confidently predicted chunks of text for each translator together with the most important features from the model to understand the differences in translation style.
 
 [08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
 
-#### Re-modelling with Dropped Features
+### Re-modelling with Dropped Features
 
 The top prediction analysis highlighted the risk if using seemingly very general words. 'had' and 'he' are strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the 
 
-#### Confirmation with an Alternative Test Set 
+### Confirmation with an Alternative Test Set 
 
 Re-run the most suitable model, de-selecting features that may relate to the 
 
 - **Notebooks:**[09_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09_lreg_same_text_check.ipynb)
+
+
 
 ## Results
 
@@ -129,14 +137,16 @@ Re-run the most suitable model, de-selecting features that may relate to the
 
 - As the initial train/test split was performed at random there is the risk that the model is learning something of the style of the books themselves rather than the translation style. In order to rule this out, the model is re-run with the test set being only text where there is the same source material but different translators. 
 
+
+
 ## Next Steps
 
-**Modelling**
+### **Modelling**
 
 - Further features e.g. ngrams, word order, sentence structure etc.
 - Other models e.g. different neural network architectures 
 
-**Topic Expansion**
+### **Topic Expansion**
 
 - Clustering e.g. set 3 clusters - does data cluster on translator?
 - Another author especially one book with several translators
