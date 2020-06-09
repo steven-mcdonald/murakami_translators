@@ -25,28 +25,57 @@ Could Machine Learning models trained to predict the translator of an unseen tex
 
 ## Key Stages
 
-- Import ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis with Python.
-  -  **Libraries/Tools used:** ebooklib, BeautifulSoup and textract.
-  - **Notebook:** [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
-- Clean and organise the texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
-  - **Libraries/Tools used:** pandas, regex .
-  - **Notebook:** [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
-- Engineer features related to translation style while avoiding features related to the overall content or themes of the books. Explore the data and features.
-  - **Libraries/Tools used:** textacy, vaderSentiment, sklearn.
-  - **Notebooks:** [03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb), [04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb),  [05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
-- Evaluate the effectiveness of logistic regression models generated using different features
-  - using accuracy and confusion matrices as the main evaluation metrics to measure the success of the models.
-  - **Libraries used:** .
-  - **Notebooks:** [06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
-- Evaulate the effectiveness of alternative model algorithms to accurately predict the translator while providing insights into the importance of the features used in the predictions
-  - **Libraries used:** .
-  - **Notebooks:** [06b_modelling_knn_dtree_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06b_modelling_knn_dtree_v01.ipynb), [06c_modelling_ensembles_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06c_modelling_ensembles_v01.ipynb), [06d_modelling_SVM_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06d_modelling_SVM_v01.ipynb), [06e_modelling_nnet_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06e_modelling_nnet_v01.ipynb), [07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
-- Checking the most confidently predicted chunks of text for each translator together with the most important features from the model to understand the differences in translation style
-  - **Libraries used:** .
-  - **Notebooks:**[08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
-- Re-run the most suitable model, de-selecting features that may relate to the 
-  - **Libraries used:** .
-  - **Notebooks:**[09_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09_lreg_same_text_check.ipynb)
+#### Data Loading
+
+Import ebooks of Murakami's works from various formats (epub, docx, pdf) into standardised text files for analysis with Python.
+
+Key libraries used were ebooklib, BeautifulSoup and textract.
+
+- **Notebook:** [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
+
+#### Data Cleaning 
+
+Clean and organise the texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
+
+- **Notebook:** [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
+
+#### Feature Engineering and EDA
+
+Engineer features related to translation style while avoiding features related to the overall content or themes of the books. Explore the data and features.
+
+Key libraries used were textacy, vaderSentiment, sklearn.
+
+- **Notebooks:** [03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb), [04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb),  [05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
+
+#### Modelling with Combinations of Features
+
+Evaluate the effectiveness of logistic regression models generated using different features
+
+using accuracy and confusion matrices as the main evaluation metrics to measure the success of the models.
+
+- **Notebooks:** [06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
+
+#### Comparing Machine Learning Algorithms
+
+Evaulate the effectiveness of alternative model algorithms to accurately predict the translator while providing insights into the importance of the features used in the predictions
+
+- **Notebooks:** [06b_modelling_knn_dtree_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06b_modelling_knn_dtree_v01.ipynb), [06c_modelling_ensembles_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06c_modelling_ensembles_v01.ipynb), [06d_modelling_SVM_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06d_modelling_SVM_v01.ipynb), [06e_modelling_nnet_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06e_modelling_nnet_v01.ipynb), [07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
+
+#### Investigating the most Confident Predictions
+
+Checking the most confidently predicted chunks of text for each translator together with the most important features from the model to understand the differences in translation style
+
+- **Notebooks:**[08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
+
+#### Re-modelling with Dropped Features
+
+
+
+#### Confirmation with an Alternative Test Set 
+
+Re-run the most suitable model, de-selecting features that may relate to the 
+
+- **Notebooks:**[09_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09_lreg_same_text_check.ipynb)
 
 ## Results
 
