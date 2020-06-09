@@ -87,13 +87,21 @@ Checking the most confidently predicted chunks of text for each translator toget
 
 ### Re-modelling with Dropped Features
 
-The top prediction analysis highlighted the risk if using seemingly very general words. 'had' and 'he' are strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the 
+The top prediction analysis highlighted the risk if using seemingly very general words. From the initial modelling, **'had'** and **'he'** are strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the most confidently predicted chunks we can see that these features are more linked to the novels themselves than any significant translation style and we are overfitting to the training data. 
+
+The novel 'Kafka on the Shore' translated by Philip Gabriel is written in the third person whereas many of Murakami's other novels are written in first person. The model is therefore more likely to be using the frequency of the word 'he' to predict the novel rather than the translator. The same goes for 'The Wind-Up Bird Chronicle', translated by Jay Rubin which contains a significant amount of text in the past tense and so the model is likely to be using the frequency of the word 'had' to predict the novel rather than the translator once again.
+
+This issue arises due to the initial randomised train/test split which takes sections of each book to train and other sections when testing the model. In the following section we can avoid this issue by setting asside complete books as test sets and training on the remaining books.
+
+[09a_modelling_lreg_feature_drop_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09a_modelling_lreg_feature_drop_v01.ipynb)
+
+[09b_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09b_lreg_top_pred_analysis_v01.ipynb)
 
 ### Confirmation with an Alternative Test Set 
 
 Re-run the most suitable model, de-selecting features that may relate to the 
 
-- **Notebooks:**[09_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09_lreg_same_text_check.ipynb)
+[09c_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09c_lreg_same_text_check.ipynb)
 
 
 
