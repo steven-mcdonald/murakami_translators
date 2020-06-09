@@ -31,13 +31,13 @@ Import ebooks of Murakami's works from various formats (epub, docx, pdf) into st
 
 Key libraries used were ebooklib, BeautifulSoup and textract.
 
-- **Notebook:** [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
+[01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
 
 #### Data Cleaning 
 
 Clean and organise the texts. Split the book texts into small samples as datapoints. Sample set at ~ 1000 characters length. Text splitting on full stops to avoid partial sentences
 
-- **Notebook:** [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
+[02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
 
 #### Feature Engineering and EDA
 
@@ -45,7 +45,11 @@ Engineer features related to translation style while avoiding features related t
 
 Key libraries used were textacy, vaderSentiment, sklearn.
 
-- **Notebooks:** [03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb), [04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb),  [05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
+[03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb)
+
+[04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb)
+
+[05_df_additional_features_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/05_df_additional_features_v01.ipynb)
 
 #### Modelling with Combinations of Features
 
@@ -53,23 +57,31 @@ Evaluate the effectiveness of logistic regression models generated using differe
 
 using accuracy and confusion matrices as the main evaluation metrics to measure the success of the models.
 
-- **Notebooks:** [06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
+[06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
 
 #### Comparing Machine Learning Algorithms
 
-Evaulate the effectiveness of alternative model algorithms to accurately predict the translator while providing insights into the importance of the features used in the predictions
+Evaulate the effectiveness of alternative model algorithms. Following the project objectives the goal is to have a model that is both accurate and interpretable. Boosting, SVM and Multi-Layer Perceptron Neural Networks all generated greater accuracy in their predictions than Logistic Regression. However, 
 
-- **Notebooks:** [06b_modelling_knn_dtree_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06b_modelling_knn_dtree_v01.ipynb), [06c_modelling_ensembles_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06c_modelling_ensembles_v01.ipynb), [06d_modelling_SVM_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06d_modelling_SVM_v01.ipynb), [06e_modelling_nnet_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06e_modelling_nnet_v01.ipynb), [07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
+[06b_modelling_knn_dtree_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06b_modelling_knn_dtree_v01.ipynb)
+
+[06c_modelling_ensembles_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06c_modelling_ensembles_v01.ipynb)
+
+[06d_modelling_SVM_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06d_modelling_SVM_v01.ipynb)
+
+[06e_modelling_nnet_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06e_modelling_nnet_v01.ipynb)
+
+[07_score_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/07_score_analysis_v01.ipynb)
 
 #### Investigating the most Confident Predictions
 
-Checking the most confidently predicted chunks of text for each translator together with the most important features from the model to understand the differences in translation style
+Checking the most confidently predicted chunks of text for each translator together with the most important features from the model to understand the differences in translation style.
 
-- **Notebooks:**[08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
+[08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
 
 #### Re-modelling with Dropped Features
 
-
+The top prediction analysis highlighted the risk if using seemingly very general words. 'had' and 'he' are strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the 
 
 #### Confirmation with an Alternative Test Set 
 
@@ -86,6 +98,8 @@ Re-run the most suitable model, de-selecting features that may relate to the
   ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/model_cv_acc_comparison_01.png)
 
 - Feature importance from the best Logistic Regression model indicate the following features to be the most important when differentiating each translator from the other two.
+
+  ![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_01.png)
 
   **Alfred Birnbaum**:
 
