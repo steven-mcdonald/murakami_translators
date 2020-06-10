@@ -41,7 +41,7 @@ Ebooks of Murakami's works in various formates (epub, docx, pdf) were imported i
 
 As the original ebooks were in many different formats, the resulting text files were also in several forms from lists of lists to continuous strings. Each text was read in and split into chapters while extracting chapter numbers, chapter numbers and translators when suitable. 
 
-Book chapter can vary significantly in length and with a dataset comprising of 7 books we only have a few hundred chapters in total. We typically need a few thousand datapoints when performing machine learning on any dataset with more than a handful of features. Sentences and paragraphs can also vary significantly in length and therefore prove challenging to compare, while even pages can vary in length depending on the book formatting. I therefore decided to split the book texts into chunks set at ~ 1000 characters in length. The actual chunk lengthsvary in size as they are split on full stops to avoid chunks containing partial sentences.
+Book chapters can vary significantly in length and with a dataset comprising of 7 books I only had just over two hundred chapters in total. We typically need a few thousand data points when performing machine learning on any dataset with more than a handful of features. Sentences and paragraphs can also vary significantly in length and therefore prove challenging to compare, while even pages can vary in length depending on the book formatting. I therefore decided to split the book texts into chunks set at ~1000 characters in length. The actual chunk lengths vary in size as they are split on full stops to avoid chunks containing partial sentences.
 
 [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
 
@@ -87,7 +87,11 @@ As several types of features were engineered, an initial set of regularised logi
 
 Model hyperparameters were gridsearched and cross-validated accuracy was used to measure the predictive success of each model together with confusion matrices.
 
-Logistic Regression scored well above the baseline accuracy of 0.40 (i.e. better than choosing the most common translator by default). This was a very positive outcome and meant that I could continue on to the second objective of gaining insights into the translator's styles from the model features. However, before that, other machine learning algorithms that could potentially generate even more accurate predictions were tested in the next step.
+Logistic Regression scored well above the baseline accuracy of 0.40 (i.e. better than choosing the most common translator by default). 
+
+![lreg scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/lreg_sel_feature_scores.png) 
+
+This was a very positive outcome and meant that I could continue on to the second objective of gaining insights into the translator's styles from the model features. However, before that, other machine learning algorithms that could potentially generate even more accurate predictions were tested in the next step.
 
 [06a_modelling_lreg_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/06a_modelling_lreg_v01.ipynb)
 
