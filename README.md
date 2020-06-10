@@ -9,8 +9,8 @@ Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_me
 - [Overview](#overview)
 - [Objectives](#objectives)
 - [Key Stages](#key-stages)
-- [Results](#results)
-- [Next Steps](#next-steps)
+- [Summary and Conclusions](#summary-and-conclusions)
+- [Possible Extensions](#possible-extensions)
 
 
 
@@ -115,6 +115,12 @@ Perhaps the most interesting stage of the project was reviewing the the most con
 
 [08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
 
+![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_01.png)
+
+The figure below helps summarise the values of some of these key features for the most confidently predicted chunks of text for each translator
+
+![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png)
+
 ### Re-modelling with Dropped Features
 
 The top prediction analysis highlighted the risk of using seemingly very general words. From the initial modelling, **'had'** and **'he'** are strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the most confidently predicted chunks we can see that these features are more linked to the novels themselves than any significant translation style and we are overfitting to the training data. 
@@ -137,51 +143,18 @@ Fortunately, the re-run model was still able to beat the baseline and confirmed 
 
 [09c_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09c_lreg_same_text_check.ipynb)
 
+## Summary and Conclusions
 
+- The 7 available books were all successfully loaded and cleaned. A data sample was set as a chunk of text ~1000 characters long.
+- Features that could be expected to relate to the translator style were extracted.
+- An initial set of Logistic Regression models showed that features based on textacy basic counts and counts of POS types increased the predictive power significantly. Individual general word counts were particularly beneficial for predicting Philip Gabriel translations but one feature, counts of the word 'he' related to the voice of the original novel and so was later dropped. Counts of some specific adverbs and adjectives also improved the predictive power slightly. On the other hand Vader sentiment scores did not significantly improve the accuracy and in fact had lower accuracy on the test set
+- Further modelling algorithms were tested. Although some such as SVM and XGBoost performed slightly better on 5-fold cross-validation accuracy, they was more challenging to extract information on feature importance and so the Logistic Regression model was used for further analysis.
+- **All models tested were able to predict the translator of a test dataset with accuracy above the baseline score of 0.40 (i.e. better than choosing the most common translator by default)**
+- **A number of features which are not immediately apparent such as sentence, adverb and pronoun counts were shown to help distinguish the translators of these texts** 
+- The texts predicted to belong to each translator with the highest probabilities were assessed. From this, features potentially related to the underlying stories rather than translation style became apparent. These features were dropped and the modelling re-ran. The accuracy dropped slightly but was still well above baseline
+- As a final confirmation of the modelling approach a Logistic Regression model was generated with a non-random train/test split. Text which had been translated twice by different translators was used as the test set. In this way the potential for the model to fit to the story rather than the translator was avoided. The resulting model was still able to predict above baseline
 
-## Results
-
-- All models tested were able to predict the translator of a test dataset with accuracy above the baseline score of 0.40 (i.e. better than choosing the most common translator by default)
-
-- Logistic Regression, SVM and XGBoost models all had 5-fold cross-validation accuracy above 0.67. Although XGBoost was the most accurate model, further analysis was continued using Logistic Regression due to its short run time and more easily interpretable features.
-
-  ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/model_cv_acc_comparison_01.png)
-
-- Feature importance from the best Logistic Regression model indicate the following features to be the most important when differentiating each translator from the other two.
-
-  ![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_01.png)
-
-  **Alfred Birnbaum**:
-
-  - more monosyllable words
-  - shorter sentences
-  - fewer verbs
-
-  **Jay Rubin**:
-
-  - longer sentences
-  - more pronouns
-  - frequency of the word 'had'
-
-  **Philip Gabriel**:
-
-  - fewer pronouns
-  - more verbs
-  - frequency of the word he
-
-  The figure below helps summarise the values of some of these key features for the most confidently predicted chunks of text for each translator
-
-  ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png)
-
-- Some features were dropped before modelling as they were potentially related to the content  or page formatting such as punctuation.
-
-- Two remaining features which were important in the predictions, namely frequency of the words 'had' and 'he' may also be more related to the tense and the narrative perspective. The modelling was therefore rerun without these features to ensure that the baseline could still be beaten.
-
-- As the initial train/test split was performed at random there is the risk that the model is learning something of the style of the books themselves rather than the translation style. In order to rule this out, the model is re-run with the test set being only text where there is the same source material but different translators. 
-
-
-
-## Next Steps
+## Possible Extensions
 
 ### **Modelling**
 
