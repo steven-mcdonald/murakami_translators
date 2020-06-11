@@ -1,8 +1,8 @@
 # Murakami Translators
 
-![Murakami Reader Header](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/alva-pratt-a5ToDH34m0I-unsplash-crop.jpg)
+![Murakami Title Image](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/Murakami_Title_Image.png)
 
-Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/japanese-reading?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ Photo by [Alva Pratt](https://unsplash.com/@alvapratt?utm_source=unsplash&utm_me
 
 ## Overview
 
-As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I'd been curious about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work? This seemed quite possible to me given the linguistic gulf between Japanese and English.
+As an avid reader of fiction, I have often wondered about the impact of the translator's style on a translated novel. In particular, I've been curious about the works of Haruki Murakami. He writes in Japanese and has three main english language translators: Alfred Birnbaum, Jay Rubin and Philip Gabriel.  How much of what I was reading was Murakami and how much was the translator? Did the different translators have different takes on the original work? This seemed quite possible to me given the linguistic gulf between Japanese and English.
 
 Could Machine Learning models trained to predict the translator of an unseen text help answer these questions? That is the aim of this project.
 
@@ -49,29 +49,29 @@ Book chapters can vary significantly in length and with a dataset comprising of 
 
 Engineering suitable features was crucial to the project. Features needed to be related to translation style rather than the overall content or themes of the books. Features such as characters, locations or topics can be very useful when predicting a specific text. However, they are likely to be related to the underlying story and not to any decision made during the translation process.
 
-##### Textacy Basic Counts
+- ##### Textacy Basic Counts
 
-The textacy feature, basic_counts, provides some statistics on a supplied text which could be related to the translation style such as the number of unique words and the numder of sentences in a given text.
+  The textacy feature, basic_counts, provides some statistics on a supplied text which could be related to the translation style such as the number of unique words and the numder of sentences in a given text.
 
-##### POS Counts
+- ##### POS Counts
 
-POS (Parts Of Speech) labels, again from textacy, were used to generate further features. Words were given POS labels such as adverbs, pronouns, adjectives etc. and then the counts of each POS type for a chunk of text were added as features.
+  POS (Parts Of Speech) labels, again from textacy, were used to generate further features. Words were given POS labels such as adverbs, pronouns, adjectives etc. and then the counts of each POS type for a chunk of text were added as features.
 
-##### Bag-of-Words
+- ##### Bag-of-Words
 
-Bag-of-Words analysis using sklearn's CountVectorizer was used to generate counts of each word in the dataset. The count per chunk was then divided by the total number of words used by each translator to get a measure of how common that word is for the translator. Counts of some general use words that showed variation between the different translators were added as features
+  Bag-of-Words analysis using sklearn's CountVectorizer was used to generate counts of each word in the dataset. The count per chunk was then divided by the total number of words used by each translator to get a measure of how common that word is for the translator. Counts of some general use words that showed variation between the different translators were added as features
 
-##### Selected Adverbs and Adjectives
+- ##### Selected Adverbs and Adjectives
 
-It is possible that a given translator may favour a given adjective or adverb. By selecting only those words with POS labels for adjectives and adverbs further features were added based on counts for adverbs such as 'very' and 'really' as well as for adjectives such as 'small' and 'good'
+  It is possible that a given translator may favour a given adjective or adverb. By selecting only those words with POS labels for adjectives and adverbs further features were added based on counts for adverbs such as 'very' and 'really' as well as for adjectives such as 'small' and 'good'
 
-##### Vader Sentiment Scores
+- ##### Vader Sentiment Scores
 
-Vader sentiment scores which give values for positive, negative and neutral for a text indicating it's sentiment. It was considered likely that these features would potentially be more closely linked to the underlying themes of a book rather than a choice to change the sentiment by the translator. In any case, these features were tested initially to try to understand if they could play a role in the modelling
+  Vader sentiment scores which give values for positive, negative and neutral for a text indicating it's sentiment. It was considered likely that these features would potentially be more closely linked to the underlying themes of a book rather than a choice to change the sentiment by the translator. In any case, these features were tested initially to try to understand if they could play a role in the modelling
 
-##### Count Normalisation
+- ##### Count Normalisation
 
-One final important point for the feature engineering is that, as chunk length varied somewhat, counts per chunk were normalised to the equivalent of a 1000 character chunk. This was to reduce the length of the chunk itself having an impact. 
+  One final important point for the feature engineering is that, as chunk length varied somewhat, counts per chunk were normalised to the equivalent of a 1000 character chunk. This was to reduce the length of the chunk itself having an impact. 
 
 Once the features had been generated, some further EDA (Exploratory Data Analysis) was carried out to investigate the features. 
 
@@ -155,7 +155,7 @@ Fortunately, the re-run model was still able to beat the baseline and confirmed 
 - Further modelling algorithms were tested. Although some such as SVM and XGBoost performed slightly better on 5-fold cross-validation accuracy, they was more challenging to extract information on feature importance and so the Logistic Regression model was used for further analysis.
 - **All models tested were able to predict the translator of a test dataset with accuracy above the baseline score of 0.40 (i.e. better than choosing the most common translator by default)**
 - **A number of features which are not immediately apparent such as sentence, adverb and pronoun counts were shown to help distinguish the translators of these texts** 
-- The texts predicted to belong to each translator with the highest probabilities were assessed. From this, features potentially related to the underlying stories rather than translation style became apparent. These features were dropped and the modelling re-ran. The accuracy dropped slightly but was still well above baseline
+- The texts predicted to belong to each translator with the highest probabilities were assessed. From this, features potentially related to the underlying stories rather than translation style became apparent. These features were dropped and the modelling re-ran. The accuracy dropped slightly but was still well above baseline with an accuracy of 0.649 compared to 0.677 before they were dropped.
 - As a final confirmation of the modelling approach a Logistic Regression model was generated with a non-random train/test split. Text which had been translated twice by different translators was used as the test set. In this way the potential for the model to fit to the story rather than the translator was avoided. The resulting model was still able to predict above baseline
 
 ## Possible Extensions
