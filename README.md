@@ -1,8 +1,6 @@
-# Murakami Translators
-
 ![Murakami Title Image](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/Murakami_Title_Image.png)
 
-
+# Murakami Translators Project
 
 ## Table of Contents
 
