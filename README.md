@@ -1,6 +1,10 @@
 ![Murakami Title Image](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/Murakami_Title_Image.png)
 
+------
+
 # Murakami Translators Project
+
+------
 
 ## Table of Contents
 
@@ -9,8 +13,6 @@
 - [Key Stages](#key-stages)
 - [Summary and Conclusions](#summary-and-conclusions)
 - [Possible Extensions](#possible-extensions)
-
-
 
 ------
 
