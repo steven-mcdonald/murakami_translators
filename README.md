@@ -31,15 +31,19 @@ Could Machine Learning models trained to predict the translator of an unseen tex
 
 ### Data Loading
 
-Ebooks of Murakami's works in various formates (epub, docx, pdf) were imported into standardised text files for analysis with Python. The key libraries used were ebooklib, BeautifulSoup and textract.
+Ebooks of some of Murakami's works in various formats (epub, docx, pdf) were imported into standardised text files for analysis with Python. The key libraries used were ebooklib, BeautifulSoup and textract.
 
  [01_read_ebooks_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/01_read_ebooks_v01.ipynb)
 
 ### Data Cleaning 
 
-As the original ebooks were in many different formats, the resulting text files were also in several forms from lists of lists to continuous strings. Each text was read in and split into chapters while extracting chapter numbers, chapter numbers and translators when suitable. 
+As the original ebooks were in many different formats and structures, the resulting text files were also in several forms from lists of lists to continuous strings. Each text was read in and split into chapters while extracting chapter numbers, chapter numbers and translators when suitable. 
 
 Book chapters can vary significantly in length and with a dataset comprising of 7 books I only had just over two hundred chapters in total. We typically need a few thousand data points when performing machine learning on any dataset with more than a handful of features. Sentences and paragraphs can also vary significantly in length and therefore prove challenging to compare, while even pages can vary in length depending on the book formatting. I therefore decided to split the book texts into chunks set at ~1000 characters in length. The actual chunk lengths vary in size as they are split on full stops to avoid chunks containing partial sentences.
+
+The figure below shows the chunks per book, coloured by translator.
+
+![chunks_per_book](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/chunks_per_book_translator_01.png)
 
 [02_text_prep_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/02_text_prep_v01.ipynb)
 
