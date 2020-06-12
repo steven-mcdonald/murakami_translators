@@ -53,7 +53,7 @@ Engineering suitable features was crucial to the project. Features needed to be 
 
 - ##### Textacy Basic Counts
 
-  The textacy feature, basic_counts, provides some statistics on a supplied text which could be related to the translation style such as the number of unique words and the numder of sentences in a given text.
+  The textacy feature, basic_counts, provides some statistics on a supplied text which could be related to the translation style such as the number of unique words and the number of sentences in a given text.
 
 - ##### POS Counts
 
@@ -65,11 +65,11 @@ Engineering suitable features was crucial to the project. Features needed to be 
 
 - ##### Selected Adverbs and Adjectives
 
-  It is possible that a given translator may favour a given adjective or adverb. By selecting only those words with POS labels for adjectives and adverbs further features were added based on counts for adverbs such as 'very' and 'really' as well as for adjectives such as 'small' and 'good'
+  It is possible that a given translator may favour a given adjective or adverb. By selecting only those words with POS labels for adjectives and adverbs, further features were added based on counts for adverbs such as 'very' and 'really' as well as for adjectives such as 'small' and 'good'
 
 - ##### Vader Sentiment Scores
 
-  Vader sentiment scores which give values for positive, negative and neutral for a text indicating it's sentiment. It was considered likely that these features would potentially be more closely linked to the underlying themes of a book rather than a choice to change the sentiment by the translator. In any case, these features were tested initially to try to understand if they could play a role in the modelling
+  Vader sentiment scores which give values for positive, negative and neutral for a text indicating its sentiment. It was considered likely that these features would potentially be more closely linked to the underlying themes of a book rather than a choice to change the sentiment by the translator. In any case, these features were tested initially to try to understand if they could play a role in the modelling
 
 - ##### Count Normalisation
 
@@ -87,9 +87,9 @@ Once the features had been generated, some further EDA (Exploratory Data Analysi
 
 As several types of features were engineered, an initial set of regularised logistic regression models was generated. Each model having an additional feature type added to help understand their contribution to the predictions. 
 
-Model hyperparameters were gridsearched and cross-validated accuracy was used to measure the predictive success of each model together with confusion matrices.
+The dataset was train/test split with random shuffling. Model hyperparameters were gridsearched and cross-validated accuracy was used to measure the predictive success of each model together with confusion matrices.
 
-Logistic Regression scored well above the baseline accuracy of 0.40 (i.e. better than choosing the most common translator by default). 
+Logistic Regression scored well above the baseline accuracy of 0.40 (i.e. better than choosing the most common translator by default) even with limited features. 
 
 ![lreg scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/lreg_sel_feature_scores.png) 
 
@@ -119,11 +119,11 @@ The project objectives from the outset were to have a model that is both accurat
 
 ### Investigating the most Confident Predictions
 
-Perhaps the most interesting stage of the project was reviewing the the most confidently predicted chunk of text for each translator together with the model features. From this I could gain some insights into the differences in the translator's styles  
+Perhaps the most interesting stage of the project was reviewing the most confidently predicted chunk of text for each translator together with the model features. From this I could gain some insights into the differences in the translator's styles  
 
 ![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_01.png)
 
-The above figure indicates the most important features from the logistic regression model for determining each translator compared to the others. From this we can say that in general:
+The above figure indicates the most important features from the logistic regression model for determining each translator compared to the others. From this we can say that in general the translation styles have the following features:
 
 **Birnbaum:** More monosyllabic words | Shorter sentences | Fewer verbs
 
@@ -133,29 +133,29 @@ The above figure indicates the most important features from the logistic regress
 
 The figure below helps summarise the values of some of these key features for the most confidently predicted chunks of text for each translator. 
 
-I selected the most confident prediction for each translator – typically with probability of >95% to see what the actual features of these text chunks compare.
-
-In the figure below, we can see the full distribution of values for some key predictors as red bands. The grey diamond shows the mean for a given translator. The black spot shows the value for the most confidently predicted chunk in each case.
+I selected the most confident prediction for each translator (typically with probability of >95%) to see how the actual features of these text chunks compare. In the figure, we can see the full distribution of values for some key predictors as red bands. The grey diamond shows the mean for a given translator. The black spot shows the value for the most confidently predicted chunk in each case.
 
 ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png) 
 
-For Birnbaum we can see that his best predicted chunk does indeed have a high number of monosyllable words and a high number of sentences
+For **Birnbaum**, we can see that his best predicted chunk does indeed have a high number of monosyllable words and a high number of sentences
 
-For Rubin we can see his number of sentences is lower for his best predicted chunk as expected. His adverb count is also low and the count of the word ‘had’ is high
+For **Rubin**, we can see his number of sentences is lower for his best predicted chunk as expected. His adverb count is also low and the count of the word ‘had’ is high
 
-For Gabriel verb count is high and count for the word ‘he’ is also high.
+For **Gabriel**, verb count is high and count for the word ‘he’ is also high.
 
 [08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
 
 ### Re-modelling with Dropped Features
 
-The top prediction analysis highlighted the risk of using seemingly very general words. As we have seen from the initial modelling, **'had'** and **'he'** were strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the most confidently predicted chunks we can see that these features are more linked to the novels themselves than any significant translation style and we are overfitting to the training data. 
+The top prediction analysis highlighted the risk of using seemingly very general words. As we have seen from the initial modelling, **'had'** and **'he'** were strong predictors for Jay Rubin and Philip Gabriel respectively. When analysing the most confidently predicted chunks we can see that these features are more linked to the novels themselves than any significant translation style and the model is not likely to generalise well.
 
-The novel 'Kafka on the Shore' translated by Philip Gabriel is written in the third person whereas many of Murakami's other novels are written in first person. The model is therefore more likely to be using the frequency of the word 'he' to predict the novel rather than the translator. The same goes for 'The Wind-Up Bird Chronicle', translated by Jay Rubin which contains a significant amount of text in the past tense and so the model is likely to be using the frequency of the word 'had' to predict the novel rather than the translator once again.
+The novel 'Kafka on the Shore' translated by Philip Gabriel is written in the third person whereas many of Murakami's other novels are written in first person. The model is therefore more likely to be using the frequency of the word 'he' to predict the novel rather than the translator's style choices. The same goes for 'The Wind-Up Bird Chronicle', translated by Jay Rubin which contains a significant amount of text in the past tense and so the model is likely to be using the frequency of the word 'had' to predict the novel rather than the translator's style once again.
 
 The logistic regression modelling was re-run without the features related to the frequency of the words 'had' and 'he'.
 
 ![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_02.png)
+
+The discriminating translation style features are now:
 
 **Birnbaum:** Shorter sentences | Fewer verbs | More unique words
 
@@ -163,7 +163,7 @@ The logistic regression modelling was re-run without the features related to the
 
 **Gabriel:** Less use of the word 'said' | Fewer pronouns | More verbs 
 
-This issue arises due to the initial randomised train/test split which takes sections of each book to train and other sections when testing the model. In the following section we can avoid this issue by setting aside complete books as test sets and training on the remaining books.
+This issue of features relating to the story itself partly arises due to the initial randomised train/test split which takes sections of each book to train the model and other sections when testing the model. In the following section we can avoid this issue by setting aside complete books as test sets and training on the remaining books.
 
 [09a_modelling_lreg_feature_drop_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09a_modelling_lreg_feature_drop_v01.ipynb)
 
@@ -173,11 +173,11 @@ This issue arises due to the initial randomised train/test split which takes sec
 
 As a final confirmation of the modelling approach I re-ran the Logistic Regression ( dropping the 'had' and 'he' count features) with a non-random train/test split.
 
-The test set consisted of the text for which I had versions by two different translators, Jay Rubin and Alfred Birnbaum. The dataset contained several chapters of Norwegian Wood and one chapter of  'A Wind-Up Bird Chronicle' which had been translated twice, once by each translator. This provided a good control set as the  original Japanese text was the same and the only difference was the translator.
+The test set consisted of the text for which I had versions by two different translators, Jay Rubin and Alfred Birnbaum. The dataset contained several chapters of Norwegian Wood and one chapter of  'A Wind-Up Bird Chronicle' which had been translated twice, once by each translator. This provided a good control test set as the original Japanese text was the same and the only difference was the translator.
 
 Two versions of this test ran. The first with all three translators in the training set but only the texts from Birnbaum and Rubin outlined above in the test set.
 
-Fortunately, this model was still able to beat the baseline and confirmed that it was possible to predict the translator using the available features.
+The baseline accuracy this time was 0.50. The cross-validated accuracy was less relevant in this case and the focus was on the test set accuracy score which was 0.55. Fortunately, this model was still able to beat the baseline (albeit by a smaller margin) and confirmed that it was possible to predict the translator using the available features. The discriminating features shown below include Gabriel even though he was not in the test set as he was included in the training set: 
 
 ![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_rerun_01.png)
 
@@ -187,11 +187,11 @@ Fortunately, this model was still able to beat the baseline and confirmed that i
 
 **Gabriel:** Less use of the word 'said' | Fewer pronouns | More verbs 
 
-As the test set consisted of only two translators, Birnbaum and Rubin, I ran a second version with only these two translators in the training set as well. The test accuracy was improved.
+As the test set consisted of only two translators, Birnbaum and Rubin, I ran a second version with only these two translators in the training set as well. The test accuracy was improved significantly at 0.67 as there were no more false positive Gabriel predictions.
 
 ![](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_lreg_coeffs_rerun_02.png)
 
-As there were only 2 target categories there was only one feature set in the model - those predicting Rubin:
+As there were only 2 target categories there was only one feature set in the model, as shown above, those predicting Rubin rather than Birnbaum:
 
 **Rubin:** Longer sentences | More auxiliary words | Fewer characters | Fewer unique words
 
@@ -206,16 +206,17 @@ As there were only 2 target categories there was only one feature set in the mod
 - The 7 available books were all successfully loaded and cleaned. A data sample was set as a chunk of text ~1000 characters long.
 - Features that could be expected to relate to the translator style were extracted and tested with Logistic Regression. At this point, Vader sentiment scores were dropped from the modelling as they did not improve the accuracy scores.
 - Further modelling algorithms were tested. Although some such as SVM and XGBoost performed slightly better on 5-fold cross-validation accuracy, they was more challenging to extract information on feature importance and so the Logistic Regression model was used for further analysis.
-- All initial models tested were able to predict the translator of a test dataset with accuracy above the baseline score of 0.40 (i.e. better than choosing the most common translator by default). the chosen Logistic Regression model had an accuracy score of 0.68.
+- All initial models tested were able to predict the translator of a test dataset with accuracy above the baseline score of 0.40 (i.e. better than choosing the most common translator by default). The chosen Logistic Regression model had an accuracy score of 0.68.
+- After analysis of the results, some features were dropped and the train/test split was altered. A model trained on two translators with a test set containing only repeat translations by the two translators had a baseline of 0.50 and a test set accuracy of 0.67.
 
 ### Objective 2: Feature Interpretation
 
 - A number of features which are not immediately apparent such as sentence, adverb and pronoun counts were shown to help distinguish the translators of these texts 
-- Some initial features such as counts of the words 'he' and 'had' related more to the underlying story than to the translation style 
-- Although the feature importance changed somewhat from model to model, some key features appeared regularly. In particular we can be quite confident on the features differentiating between Birnbaum and Rubin due to the final test set which had identical souce material for each of the two translators
+- Some initial features such as counts of the words 'he' and 'had' related more to the underlying story than to the translation style and were dropped for later modelling. 
+- Although the feature importance changed somewhat from model to model, some key features appeared regularly. In particular we can be quite confident on the features differentiating between Birnbaum and Rubin due to the final test set which had identical souce material for each of the two translators:
   - **Birnbaum:** Shorter sentences | Fewer verbs | More unique words | more monosyllabic words
   - **Rubin:** Longer sentences | More auxiliary words | Fewer characters | Fewer unique words
-- For Gabriel we can be less certain as I do not have any texts translated by both him and another translator. From the earlier tests some features did appear regularly 
+- For Gabriel we can be less certain as we do not have any texts translated by both him and another translator. From the earlier tests some features did appear regularly:
   - **Gabriel:** Fewer pronouns | More verbs | More adverbs
 
 **Although this project only touched the surface of the topic, it seems that machine learning models were capable of differentiating Murakami's translators and some interesting aspects of the translators styles could be extracted.**  
