@@ -195,7 +195,7 @@ As there were only 2 target categories there was only one feature set in the mod
 
 **Rubin:** Longer sentences | More auxiliary words | Fewer characters | Fewer unique words
 
-[09c_lreg_same_text_check.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09c_lreg_same_text_check.ipynb)
+[09c_lreg_same_text_check_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/09c_lreg_same_text_check_v01.ipynb)
 
 ------
 
