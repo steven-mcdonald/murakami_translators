@@ -77,7 +77,7 @@ Engineering suitable features was crucial to the project. Features needed to be 
 
 Once the features had been generated, some further EDA (Exploratory Data Analysis) was carried out to investigate the features. 
 
-[03_df_generation_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/03_df_generation_v01.ipynb)  
+[03_df_generation_v01.ipynb](notebooks/03_df_generation_v01.ipynb)  
 
 [04_df_EDA_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/04_df_EDA_v01.ipynb)
 
