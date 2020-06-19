@@ -137,11 +137,11 @@ I selected the most confident prediction for each translator (typically with pro
 
 ![model scores](https://github.com/steven-mcdonald/murakami_translators/blob/master/images/top_pred_key_coeffs_01.png) 
 
-For **Birnbaum**, we can see that his best predicted chunk does indeed have a high number of monosyllable words and a high number of sentences
+For **Birnbaum**, we can see that his best predicted chunk has a high number of sentences and a low verb count. Interestingly, in this case the monosyllable word count does not seem to differ significantly from the other translators even though for the model in general this is the most significant feature for Birnbaum.
 
-For **Rubin**, we can see his number of sentences is lower for his best predicted chunk as expected. His adverb count is also low and the count of the word ‘had’ is high
+For **Rubin**, we can see his number of sentences is lower and the pronoun count is higher for his best predicted chunk as expected. The count of the word ‘had’ is is also significantly higher than the others
 
-For **Gabriel**, verb count is high and count for the word ‘he’ is also high.
+For **Gabriel**, the adverb count is high and count for the word ‘he’ is also high.
 
 [08_lreg_top_pred_analysis_v01.ipynb](https://github.com/steven-mcdonald/murakami_translators/blob/master/notebooks/08_lreg_top_pred_analysis_v01.ipynb)
 
@@ -171,7 +171,7 @@ This issue of features relating to the story itself partly arises due to the ini
 
 ### Confirmation with an Alternative Test Set 
 
-As a final confirmation of the modelling approach I re-ran the Logistic Regression ( dropping the 'had' and 'he' count features) with a non-random train/test split.
+As a final confirmation of the modelling approach I re-ran the Logistic Regression modelling (dropping the 'had' and 'he' count features) with a non-random train/test split.
 
 The test set consisted of the text for which I had versions by two different translators, Jay Rubin and Alfred Birnbaum. The dataset contained several chapters of Norwegian Wood and one chapter of  'A Wind-Up Bird Chronicle' which had been translated twice, once by each translator. This provided a good control test set as the original Japanese text was the same and the only difference was the translator.
 
@@ -212,12 +212,17 @@ As there were only 2 target categories there was only one feature set in the mod
 ### Objective 2: Feature Interpretation
 
 - A number of features which are not immediately apparent such as sentence, adverb and pronoun counts were shown to help distinguish the translators of these texts 
-- Some initial features such as counts of the words 'he' and 'had' related more to the underlying story than to the translation style and were dropped for later modelling. 
+- Some initial features such as counts of the words 'he' and 'had' related more to the underlying story than to the translation style and were dropped for later modelling. This highlights the importance of feature engineering and being aware of potential risks when using certain feature types. 
 - Although the feature importance changed somewhat from model to model, some key features appeared regularly. In particular we can be quite confident on the features differentiating between Birnbaum and Rubin due to the final test set which had identical souce material for each of the two translators:
   - **Birnbaum:** Shorter sentences | Fewer verbs | More unique words | more monosyllabic words
   - **Rubin:** Longer sentences | More auxiliary words | Fewer characters | Fewer unique words
 - For Gabriel we can be less certain as we do not have any texts translated by both him and another translator. From the earlier tests some features did appear regularly:
   - **Gabriel:** Fewer pronouns | More verbs | More adverbs
+
+### Observations
+
+- Feature engineering was a significant challenge. For much of the dataset a given book was only translated once, meaning that translator correlated with the book and its story. This raised the risk of features predicting a book and its themes rather than the translator. By re-running using a test set where the underlying text was the same for each translator, I was able to be confirm that the model was predicting  the translator and not the book.
+- It is important to check if predictions and the features used are reasonable, where possible. In this case it was suspicious that words like 'he' and 'had' were significant in the predictions. When checking the text it became clear that these features were more likely to predict the book itself and so were dropped.
 
 **Although this project only touched the surface of the topic, it seems that machine learning models were capable of differentiating Murakami's translators and some interesting aspects of the translators styles could be extracted.**  
 
